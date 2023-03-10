@@ -1,105 +1,56 @@
 <?php
 
-$data = array(
-    [
-        "id" => "1",
-        "sku" => "JVC200123",
-        "name" => "Acme DISK",
-        "price" => "1.00",
-        "type" => "DVD",
-        "type_specific" => ["Size" => '700 MB'],
-    ],
-    [
-        "id" => "2",
-        "sku" => "JVC200123",
-        "name" => "Acme DISK",
-        "price" => "1.00",
-        "type" => "DVD",
-        "type_specific" => ["Size" => '700 MB'],
-    ],
-    [
-        "id" => "3",
-        "sku" => "JVC200124",
-        "name" => "Acme DISK",
-        "price" => "1.00",
-        "type" => "DVD",
-        "type_specific" => ["Size" => '700 MB'],
-    ],
-    [
-        "id" => "4",
-        "sku" => "JVC200125",
-        "name" => "Acme DISK",
-        "price" => "1.00",
-        "type" => "DVD",
-        "type_specific" => ["Size" => '700 MB'],
-    ],
-    [
-        "id" => "5",
-        "sku" => "GGWP0007",
-        "name" => "War and Peace",
-        "price" => "20.00",
-        "type" => "Book",
-        "type_specific" => ["Weight" => '2KG'],
-    ],
-    [
-        "id" => "6",
-        "sku" => "GGWP0007",
-        "name" => "War and Peace",
-        "price" => "20.00",
-        "type" => "Book",
-        "type_specific" => ["Weight" => '2KG'],
-    ],
-    [
-        "id" => "7",
-        "sku" => "GGWP0008",
-        "name" => "War and Peace",
-        "price" => "20.00",
-        "type" => "Book",
-        "type_specific" => ["Weight" => '2KG'],
-    ],
-    [
-        "id" => "8",
-        "sku" => "GGWP0009",
-        "name" => "War and Peace",
-        "price" => "20.00",
-        "type" => "Book",
-        "type_specific" => ["Weight" => '2KG'],
-    ],
-    [
-        "id" => "9",
-        "sku" => "TR120555",
-        "name" => "Chair",
-        "price" => "40.00",
-        "type" => "Furniture",
-        "type_specific" => ["Dimentions" => '24x45x15'],
-    ],
-    [
-        "id" => "10",
-        "sku" => "TR120556",
-        "name" => "Chair",
-        "price" => "40.00",
-        "type" => "Furniture",
-        "type_specific" => ["Dimentions" => '24x45x15'],
-    ],
-    [
-        "id" => "11",
-        "sku" => "TR120557",
-        "name" => "Chair",
-        "price" => "40.00",
-        "type" => "Furniture",
-        "type_specific" => ["Dimentions" => '24x45x15'],
-    ],
-    [
-        "id" => "12",
-        "sku" => "TR120557",
-        "name" => "Chair",
-        "price" => "40.00",
-        "type" => "Furniture",
-        "type_specific" => ["Dimentions" => '24x45x15'],
-    ],
-);
+function getConnection()
+{
+    $servername = "127.0.0.1";
+    $database = "products";
+    $username = "root";
+    $password = "password";
+    $charset = "utf8mb4";
+    try {
+        $dsn = "mysql:host=$servername;dbname=$database;charset=$charset";
+        $pdo = new PDO($dsn, $username, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $pdo;
+    } catch (PDOException $e) {
+        echo 'Connection failed: ' . $e->getMessage();
+    }
+
+}
+
+$con = getConnection();
+$data = $con->query('
+SELECT id, sku, name, price, type, height, width, length, null as size, null as weight FROM product_furniture Union 
+SELECT id, sku, name, price, type, null, null, null, size, null FROM product_dvd Union
+SELECT id, sku, name, price, type, null, null, null, null, weight FROM product_book;');
+$main_list = [];
+
+foreach ($data as $row) {
+    //echo $row;
+    if ($row['type'] == 'dvd') {
+        $type_specific = [
+            "size" => $row['size']
+        ];
+    } elseif ($row['type'] == 'furniture') {
+        $type_specific = [
+            "Dimentions" => $row['height'] . 'x' . $row['width'] . 'x' . $row['length']
+        ];
+    } elseif ($row['type'] == 'book') {
+        $type_specific = [
+            "Weight" => $row['weight']
+        ];
+    }
+    $main_list[] = [
+        'id' => $row['id'],
+        'sku' => $row['sku'],
+        'name' => $row['name'],
+        'price' => $row['price'],
+        'type' => $row['type'],
+        'type_specific' => $type_specific,
+    ];
+}
 
 header("Access-Control-Allow-Origin: *");
 header('Content-Type: application/json; charset=utf-8');
-echo json_encode($data);
+echo json_encode($main_list);
 exit();
