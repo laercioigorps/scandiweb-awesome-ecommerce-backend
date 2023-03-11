@@ -30,29 +30,28 @@ class ProductControler
 
     public function list()
     {
-        $data = ProductDBManager::getAll();
-        $main_list = [];
-        foreach ($data as $row) {
-            //echo $row;
-            if ($row['type'] == 'dvd') {
+        $products = ProductDBManager::getAll();
+        $json = [];
+        foreach ($products as $product) {
+            if ($product->getType() == 'dvd') {
                 $type_specific = [
-                    "size" => $row['size']
+                    "size" => $product->getSize()
                 ];
-            } elseif ($row['type'] == 'furniture') {
+            } elseif ($product->getType() == 'furniture') {
                 $type_specific = [
-                    "Dimentions" => $row['height'] . 'x' . $row['width'] . 'x' . $row['length']
+                    "Dimentions" => $product->getHeight() . 'x' . $product->getWidth() . 'x' . $product->getLength()
                 ];
-            } elseif ($row['type'] == 'book') {
+            } elseif ($product->getType() == 'book') {
                 $type_specific = [
-                    "Weight" => $row['weight']
+                    "Weight" => $product->getWeight()
                 ];
             }
             $main_list[] = [
-                'id' => $row['id'],
-                'sku' => $row['sku'],
-                'name' => $row['name'],
-                'price' => $row['price'],
-                'type' => $row['type'],
+                'id' => $product->getId(),
+                'sku' => $product->getSku(),
+                'name' => $product->getName(),
+                'price' => $product->getPrice(),
+                'type' => $product->getType(),
                 'type_specific' => $type_specific,
             ];
         }
