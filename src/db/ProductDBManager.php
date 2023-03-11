@@ -3,6 +3,7 @@
 require_once('../src/models/ProductFurniture.php');
 require_once('../src/models/ProductBook.php');
 require_once('../src/models/ProductDVD.php');
+require_once('../src/services/ProductFactory.php');
 require_once('DB.php');
 
 class ProductDBManager
@@ -19,26 +20,7 @@ class ProductDBManager
         }
         $products = [];
         foreach ($data as $row) {
-            //echo $row;
-            if ($row['type'] == 'dvd') {
-                $product = new ProductDVD();
-                $product->setSize($row['size']);
-            } elseif ($row['type'] == 'furniture') {
-                $product = new ProductFurniture();
-                $product->setHeight($row['height']);
-                $product->setWidth($row['width']);
-                $product->setLength($row['length']);
-            } elseif ($row['type'] == 'book') {
-                $product = new ProductBook();
-                $product->setWeight($row['weight']);
-            }
-            $product->setId($row['id']);
-            $product->setSku($row['sku']);
-            $product->setName($row['name']);
-            $product->setPrice($row['price']);
-            $product->setType($row['type']);
-
-            $products[] = $product;
+            $products[] = ProductFactory::getProduct($row);
         }
 
         return $products;
