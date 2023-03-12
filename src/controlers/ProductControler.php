@@ -2,9 +2,6 @@
 
 require_once('../src/services/ProductSerializerFactory.php');
 require_once('../src/services/ProductFactory.php');
-require('../src/db/ProductDVDDBManager.php');
-require('../src/db/ProductBookDBManager.php');
-require('../src/db/ProductFurnitureDBManager.php');
 require_once('../src/db/ProductDBManager.php');
 
 class ProductControler
@@ -24,15 +21,7 @@ class ProductControler
         $data = json_decode(file_get_contents('php://input'), true);
         $serializer = ProductSerializerFactory::getProductSerializer($data);
         if ($serializer->isValid()) {
-            $product = ProductFactory::getProduct($serializer->getCleanedData());
-        }
-        if ($product->getType() === 'dvd') {
-            ProductDVDDBManager::create($data);
-            echo var_dump($product);
-        } elseif ($product->getType() === 'furniture') {
-            ProductFurnitureDBManager::create($data);
-        } elseif ($product->getType() === 'book') {
-            ProductBookDBManager::create($data);
+            $serializer->create();
         }
 
         http_response_code(201);
