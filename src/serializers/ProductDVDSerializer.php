@@ -14,4 +14,17 @@ class ProductDVDSerializer extends Serializer implements ModelSerializerInterfac
     {
         ProductDVDDBManager::create($this->getCleanedData());
     }
+
+    public function getInstanceData()
+    {
+        $instance = $this->instance;
+        return $this->data = [
+            "id" => $instance->getId(),
+            "sku" => $instance->getSku(),
+            "name" => $instance->getName(),
+            "price" => $instance->getPrice(),
+            "type" => $instance->getType(),
+            "type_specific" => ["Size" => $instance->getSize()],
+        ];
+    }
 }
