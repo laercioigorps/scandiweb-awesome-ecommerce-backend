@@ -15,4 +15,17 @@ class ProductSerializerFactory
         }
         return $serializer;
     }
+
+    public static function getProductSerializerFromProduct($product)
+    {
+        $type = $product->getType();
+        if ($type == 'dvd') {
+            $serializer = new ProductDVDSerializer(null, $product);
+        } else if ($type == 'furniture') {
+            $serializer = new ProductFurnitureSerializer(null, $product);
+        } else if ($type == 'book') {
+            $serializer = new ProductBookSerializer(null, $product);
+        }
+        return $serializer;
+    }
 }
