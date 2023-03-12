@@ -5,6 +5,7 @@ class ProductDVDDBManager
 {
     public static function create($data)
     {
+        /* try { */
         $db = new DB();
         $connection = $db->getConnection();
         $stmt = $connection->prepare('INSERT INTO product_dvd(sku, name, price, type, size ) VALUES(?, ?, ?, ?, ?)');
@@ -14,6 +15,11 @@ class ProductDVDDBManager
         $stmt->bindParam(4, $data['type']);
         $stmt->bindParam(5, $data['size']);
         $stmt->execute();
+        /* } catch (PDOException $e) {
+        print "Error!: " . $e->getMessage() . "<br/>";
+        die();
+        } */
+
     }
 
 }
