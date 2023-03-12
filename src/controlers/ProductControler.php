@@ -4,6 +4,9 @@ require('../src/db/ProductDVDDBManager.php');
 require('../src/db/ProductBookDBManager.php');
 require('../src/db/ProductFurnitureDBManager.php');
 require_once('../src/db/ProductDBManager.php');
+require_once('../src/serializers/ProductDVDSerializer.php');
+require_once('../src/serializers/ProductFurnitureSerializer.php');
+require_once('../src/serializers/ProductBookSerializer.php');
 
 class ProductControler
 {
@@ -13,12 +16,21 @@ class ProductControler
         $data = json_decode(file_get_contents('php://input'), true);
         $type = $data['type'];
         if ($type === 'dvd') {
-            ProductDVDDBManager::create($data);
+            $serializer = new ProductDVDSerializer($data);
+            if ($serializer->isValid()) {
+                ProductDVDDBManager::create($serializer->getCleanedData());
+            }
             //createProductDVD($data);
         } else if ($type === 'furniture') {
-            ProductFurnitureDBManager::create($data);
+            $serializer = new ProductFurnitureSerializer($data);
+            if ($serializer->isValid()) {
+                ProductFurnitureDBManager::create($data);
+            }
         } else if ($type === 'book') {
-            ProductBookDBManager::create($data);
+            $serializer = new ProductBookSerializer($data);
+            if ($serializer->isValid()) {
+                ProductBookDBManager::create($data);
+            }
         }
         ;
         header("Access-Control-Allow-Origin: *");
