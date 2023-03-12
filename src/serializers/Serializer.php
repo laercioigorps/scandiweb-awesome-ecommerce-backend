@@ -11,10 +11,14 @@ abstract class Serializer
         $this->data = $data;
     }
 
-    public function IsValid()
+    public function isValid()
     {
         $this->validate();
         return $this->valid;
+    }
+
+    protected function setValid($valid){
+        $this->valid = $valid;
     }
 
     public abstract function validate();
@@ -22,5 +26,10 @@ abstract class Serializer
     public function getCleanedData()
     {
         return $this->cleanedData;
+    }
+
+    protected function setCleanedData($cleanedData)
+    {
+        $this->cleanedData = $cleanedData;
     }
 }
