@@ -30,29 +30,10 @@ class ProductControler
     public function list()
     {
         $products = ProductDBManager::getAll();
-        $json = [];
+        $main_list = [];
         foreach ($products as $product) {
-            if ($product->getType() == 'dvd') {
-                $type_specific = [
-                    "size" => $product->getSize()
-                ];
-            } elseif ($product->getType() == 'furniture') {
-                $type_specific = [
-                    "Dimentions" => $product->getHeight() . 'x' . $product->getWidth() . 'x' . $product->getLength()
-                ];
-            } elseif ($product->getType() == 'book') {
-                $type_specific = [
-                    "Weight" => $product->getWeight()
-                ];
-            }
-            $main_list[] = [
-                'id' => $product->getId(),
-                'sku' => $product->getSku(),
-                'name' => $product->getName(),
-                'price' => $product->getPrice(),
-                'type' => $product->getType(),
-                'type_specific' => $type_specific,
-            ];
+            $serializer = ProductSerializerFactory::getProductSerializerFromProduct($product);
+            $main_list[] = $serializer->getInstanceData();
         }
         header("Access-Control-Allow-Origin: *");
         header('Content-Type: application/json; charset=utf-8');
