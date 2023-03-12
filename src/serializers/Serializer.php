@@ -6,9 +6,10 @@ abstract class Serializer
     protected $valid = false;
     protected $cleanedData;
 
-    public function __construct($data = null)
+    public function __construct($data = null, $instance=null)
     {
         $this->data = $data;
+        $this->instance = $instance;
     }
 
     public function isValid()
