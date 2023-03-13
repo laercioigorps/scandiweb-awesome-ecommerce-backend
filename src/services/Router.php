@@ -26,6 +26,10 @@ class Router
 
     public function route($uri, $method)
     {
+        if($method === 'OPTIONS'){
+            new Response();
+            return;
+        }
         foreach ($this->routes as $rout) {
             if ($uri === $rout['uri'] && $method == $rout['method']) {
                 echo $rout['controler']()->getData();

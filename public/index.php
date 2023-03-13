@@ -7,11 +7,6 @@ $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 
 $router = new Router();
 
-if ($_SERVER['REQUEST_METHOD'] === "OPTIONS") {
-    $response = new Response();
-    die();
-}
-
 $router->get('/products', function () {
     $controler = new ProductControler();
     return $controler->list();
