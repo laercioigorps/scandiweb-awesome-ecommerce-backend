@@ -1,4 +1,5 @@
 <?php
+require_once('../src/services/Response.php');
 class Router
 {
 
@@ -27,9 +28,10 @@ class Router
     {
         foreach ($this->routes as $rout) {
             if ($uri === $rout['uri'] && $method == $rout['method']) {
-                return $rout['controler']();
+                echo $rout['controler']()->getData();
+                return;
             }
         }
-        http_response_code(404);
+        new Response(status: 404);
     }
 }
