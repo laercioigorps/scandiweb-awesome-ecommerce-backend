@@ -32,7 +32,7 @@ class Router
         }
         foreach ($this->routes as $rout) {
             if ($request->getURI() === $rout['uri'] && $request->getMethod() == $rout['method']) {
-                echo $rout['controler']()->getData();
+                echo $rout['controler']($request)->getData();
                 return;
             }
         }

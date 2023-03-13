@@ -7,11 +7,10 @@ require_once('../src/db/ProductDBManager.php');
 
 class ProductControler
 {
-    public static function create()
+    public static function create($request)
     {
         // Converts it into a PHP object
-        $data = json_decode(file_get_contents('php://input'), true);
-        $serializer = ProductSerializerFactory::getProductSerializer($data);
+        $serializer = ProductSerializerFactory::getProductSerializer($request->POST);
         if ($serializer->isValid()) {
             $serializer->create();
         }
@@ -19,7 +18,7 @@ class ProductControler
 
     }
 
-    public static function list()
+    public static function list($request)
     {
 
         $products = ProductDBManager::getAll();

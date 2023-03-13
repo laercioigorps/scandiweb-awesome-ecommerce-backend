@@ -8,11 +8,11 @@ $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 $request = new Request();
 $router = new Router();
 
-$router->get('/products', function () {
-    return ProductControler::list();
+$router->get('/products', function ($request) {
+    return ProductControler::list($request);
 });
 
-$router->post('/products/create', function () {
-    return ProductControler::create();
+$router->post('/products/create', function ($request) {
+    return ProductControler::create($request);
 });
 $router->route($request);
