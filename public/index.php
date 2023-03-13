@@ -9,12 +9,10 @@ $request = new Request();
 $router = new Router();
 
 $router->get('/products', function () {
-    $controler = new ProductControler();
-    return $controler->list();
+    return ProductControler::list();
 });
 
 $router->post('/products/create', function () {
-    $controler = new ProductControler();
-    return $controler->create();
+    return ProductControler::create();
 });
 $router->route($request);

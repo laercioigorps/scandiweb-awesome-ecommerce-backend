@@ -7,7 +7,7 @@ require_once('../src/db/ProductDBManager.php');
 
 class ProductControler
 {
-    public function create()
+    public static function create()
     {
         // Converts it into a PHP object
         $data = json_decode(file_get_contents('php://input'), true);
@@ -19,7 +19,7 @@ class ProductControler
 
     }
 
-    public function list()
+    public static function list()
     {
 
         $products = ProductDBManager::getAll();
