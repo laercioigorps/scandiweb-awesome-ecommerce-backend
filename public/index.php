@@ -1,7 +1,6 @@
 <?php
 require_once('../src/controlers/ProductControler.php');
 require_once('../src/services/Router.php');
-require_once('../src/services/Response.php');
 require_once('../src/services/Request.php');
 
 $request = new Request();
