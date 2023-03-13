@@ -24,14 +24,14 @@ class Router
         $this->add($uri, $controler, 'POST');
     }
 
-    public function route($uri, $method)
+    public function route($request)
     {
-        if($method === 'OPTIONS'){
+        if ($request->getMethod() === 'OPTIONS') {
             new Response();
             return;
         }
         foreach ($this->routes as $rout) {
-            if ($uri === $rout['uri'] && $method == $rout['method']) {
+            if ($request->getURI() === $rout['uri'] && $request->getMethod() == $rout['method']) {
                 echo $rout['controler']()->getData();
                 return;
             }
