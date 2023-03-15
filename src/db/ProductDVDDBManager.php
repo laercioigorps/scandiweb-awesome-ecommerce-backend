@@ -8,18 +8,25 @@ class ProductDVDDBManager
         /* try { */
         $db = new DB();
         $connection = $db->getConnection();
-        $stmt = $connection->prepare('INSERT INTO product_dvd(sku, name, price, type, size ) VALUES(?, ?, ?, ?, ?)');
+        $stmt = $connection->prepare('INSERT INTO products(sku, name, price, type) VALUES(?, ?, ?, ?)');
         $stmt->bindParam(1, $data['sku']);
         $stmt->bindParam(2, $data['name']);
         $stmt->bindParam(3, $data['price']);
         $stmt->bindParam(4, $data['type']);
-        $stmt->bindParam(5, $data['size']);
-        $stmt->execute();
+        $result = $stmt->execute();
+
         /* } catch (PDOException $e) {
         print "Error!: " . $e->getMessage() . "<br/>";
         die();
         } */
-
+        if ($result === TRUE) {
+            $last_id = $connection->lastInsertId();
+            $connection = $db->getConnection();
+            $stmt = $connection->prepare('INSERT INTO products_atribute(product_id, atribute, value) VALUES(?, "size", ?)');
+            $stmt->bindParam(1, $last_id);
+            $stmt->bindParam(2, $data['size']);
+            $result = $stmt->execute();
+        }
     }
 
 }

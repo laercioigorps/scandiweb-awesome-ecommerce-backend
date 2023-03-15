@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Tempo de geração: 15/03/2023 às 17:49
+-- Tempo de geração: 15/03/2023 às 21:17
 -- Versão do servidor: 5.6.51
 -- Versão do PHP: 8.1.15
 
@@ -24,48 +24,28 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `product_book`
+-- Estrutura para tabela `products`
 --
 
-CREATE TABLE `product_book` (
+CREATE TABLE `products` (
   `id` int(11) NOT NULL,
   `sku` varchar(25) NOT NULL,
-  `name` varchar(50) NOT NULL,
+  `name` varchar(30) NOT NULL,
   `price` decimal(8,2) NOT NULL,
-  `type` varchar(15) NOT NULL,
-  `weight` decimal(8,2) NOT NULL
+  `type` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `product_dvd`
+-- Estrutura para tabela `products_atribute`
 --
 
-CREATE TABLE `product_dvd` (
+CREATE TABLE `products_atribute` (
   `id` int(11) NOT NULL,
-  `sku` varchar(25) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `price` decimal(8,2) NOT NULL,
-  `type` varchar(15) NOT NULL,
-  `size` decimal(8,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `product_furniture`
---
-
-CREATE TABLE `product_furniture` (
-  `id` int(11) NOT NULL,
-  `sku` varchar(25) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `price` decimal(8,2) NOT NULL,
-  `type` varchar(15) NOT NULL,
-  `height` decimal(8,2) NOT NULL,
-  `width` decimal(8,2) NOT NULL,
-  `length` decimal(8,2) NOT NULL
+  `product_id` int(11) NOT NULL,
+  `atribute` varchar(35) NOT NULL,
+  `value` varchar(35) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -73,47 +53,44 @@ CREATE TABLE `product_furniture` (
 --
 
 --
--- Índices de tabela `product_book`
+-- Índices de tabela `products`
 --
-ALTER TABLE `product_book`
+ALTER TABLE `products`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `sku` (`sku`);
 
 --
--- Índices de tabela `product_dvd`
+-- Índices de tabela `products_atribute`
 --
-ALTER TABLE `product_dvd`
+ALTER TABLE `products_atribute`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `sku` (`sku`);
-
---
--- Índices de tabela `product_furniture`
---
-ALTER TABLE `product_furniture`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `sku` (`sku`);
+  ADD KEY `product_id` (`product_id`);
 
 --
 -- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
--- AUTO_INCREMENT de tabela `product_book`
+-- AUTO_INCREMENT de tabela `products`
 --
-ALTER TABLE `product_book`
+ALTER TABLE `products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `product_dvd`
+-- AUTO_INCREMENT de tabela `products_atribute`
 --
-ALTER TABLE `product_dvd`
+ALTER TABLE `products_atribute`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `product_furniture`
+-- Restrições para tabelas despejadas
 --
-ALTER TABLE `product_furniture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restrições para tabelas `products_atribute`
+--
+ALTER TABLE `products_atribute`
+  ADD CONSTRAINT `products_atribute_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
