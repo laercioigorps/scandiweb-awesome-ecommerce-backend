@@ -13,14 +13,13 @@ class ProductControler
         $serializer = ProductSerializerFactory::getProductSerializer($request->POST);
         if ($serializer->isValid()) {
             $serializer->create();
+            return new Response(status: 201);
         }
-        return new Response(status: 201);
-
+        return new Response(data: json_encode(["errors" => $serializer->getErrors()]), status: 404);
     }
 
     public static function list($request)
     {
-
         $products = ProductDBManager::getAll();
         $main_list = [];
         foreach ($products as $product) {
