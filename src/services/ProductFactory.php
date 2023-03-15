@@ -4,24 +4,23 @@ class ProductFactory
     public static function getProduct($data): Product
     {
         if ($data['type'] == 'dvd') {
-
             $product = new ProductDVD();
-            $product->setSize($data['size']);
+            $product->setSize((float) $data['size']);
         } elseif ($data['type'] == 'furniture') {
             $product = new ProductFurniture();
-            $product->setHeight($data['height']);
-            $product->setWidth($data['width']);
-            $product->setLength($data['length']);
+            $product->setHeight((float) $data['height']);
+            $product->setWidth((float) $data['width']);
+            $product->setLength((float) $data['length']);
         } elseif ($data['type'] == 'book') {
             $product = new ProductBook();
-            $product->setWeight($data['weight']);
+            $product->setWeight((float) $data['weight']);
         }
         if (isset($data['id'])) {
-            $product->setId($data['id']);
+            $product->setId((int) $data['id']);
         }
         $product->setSku($data['sku']);
         $product->setName($data['name']);
-        $product->setPrice($data['price']);
+        $product->setPrice((float) $data['price']);
         $product->setType($data['type']);
         return $product;
     }
