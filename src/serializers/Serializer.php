@@ -5,8 +5,10 @@ abstract class Serializer
     protected $instance;
     protected $valid = false;
     protected $cleanedData;
+    protected $errors = [];
+    protected $fields = [];
 
-    public function __construct($data = null, $instance=null)
+    public function __construct($data = null, $instance = null)
     {
         $this->data = $data;
         $this->instance = $instance;
@@ -18,12 +20,6 @@ abstract class Serializer
         return $this->valid;
     }
 
-    protected function setValid($valid){
-        $this->valid = $valid;
-    }
-
-    public abstract function validate();
-
     public function getCleanedData()
     {
         return $this->cleanedData;
@@ -32,5 +28,27 @@ abstract class Serializer
     protected function setCleanedData($cleanedData)
     {
         $this->cleanedData = $cleanedData;
+    }
+
+    public function getErrors()
+    {
+        if (count($this->errors) == 0) {
+            return null;
+        }
+        return $this->errors;
+    }
+
+    public function validate()
+    {
+        foreach ($this->fields as $field => $validator) {
+            $validator->validate($this->data[$field]);
+            if (!$validator->isValid()) {
+                $this->errors[$field] = $validator->getErrors();
+            }
+        }
+        if (count($this->errors) == 0) {
+            $this->valid = true;
+            $this->cleanedData = $this->data;
+        }
     }
 }
