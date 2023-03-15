@@ -2,15 +2,15 @@
 require_once('ProductSerializer.php');
 require_once('ModelSerializerInterface.php');
 require_once('../src/db/ProductFurnitureDBManager.php');
-require_once('validators/FieldValidator.php');
+require_once('validators/DecimalFieldValidator.php');
 class ProductFurnitureSerializer extends ProductSerializer implements ModelSerializerInterface
 {
     public function __construct($data = null, $instance = null)
     {
         parent::__construct(data: $data, instance: $instance);
-        $this->fields["height"] = new FieldValidator(required: true);
-        $this->fields["width"] = new FieldValidator(required: true);
-        $this->fields["length"] = new FieldValidator(required: true);
+        $this->fields["height"] = new DecimalFieldValidator(required: true, positive: true);
+        $this->fields["width"] = new DecimalFieldValidator(required: true, positive: true);
+        $this->fields["length"] = new DecimalFieldValidator(required: true, positive: true);
     }
 
     public function create()

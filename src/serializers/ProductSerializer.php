@@ -2,6 +2,7 @@
 require_once('Serializer.php');
 require_once('validators/FieldValidator.php');
 require_once('validators/CharFieldValidator.php');
+require_once('validators/DecimalFieldValidator.php');
 abstract class ProductSerializer extends Serializer
 {
 
@@ -13,7 +14,7 @@ abstract class ProductSerializer extends Serializer
             return ProductDBManager::isValidNewSKU($sku);
         });
         $this->fields["name"] = new CharFieldValidator(maxLength: 25, required: true);
-        $this->fields["price"] = new FieldValidator(required: true);
+        $this->fields["price"] = new DecimalFieldValidator(required: true, positive: true);
         $this->fields["type"] = new CharFieldValidator(maxLength: 25, required: true);
     }
 }

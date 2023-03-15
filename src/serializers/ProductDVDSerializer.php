@@ -2,13 +2,13 @@
 require_once('ProductSerializer.php');
 require_once('ModelSerializerInterface.php');
 require_once('../src/db/ProductDVDDBManager.php');
-require_once('validators/FieldValidator.php');
+require_once('validators/DecimalFieldValidator.php');
 class ProductDVDSerializer extends ProductSerializer implements ModelSerializerInterface
 {
     public function __construct($data = null, $instance = null)
     {
         parent::__construct(data: $data, instance: $instance);
-        $this->fields["size"] = new FieldValidator(required: true);
+        $this->fields["size"] = new DecimalFieldValidator(required: true, positive: true);
     }
 
     public function create()
