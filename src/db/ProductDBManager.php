@@ -54,12 +54,9 @@ class ProductDBManager
     {
         $db = new DB();
         $connection = $db->getConnection();
-        if ($connection) {
-            $data = $connection->query('
-            SELECT p.id, p.sku, p.name, p.price, p.type, a.atribute, a.value FROM `products` as p left join products_atribute as a on p.id=a.product_id;');
-        }
-
-
+        $data = $connection->query('
+            SELECT p.id, p.sku, p.name, p.price, p.type, a.atribute, a.value 
+            FROM `products` as p left join products_atribute as a on p.id=a.product_id;');
         $productTable = ProductDBManager::transformAtributeLinesToColumns($data);
         $products = [];
 
