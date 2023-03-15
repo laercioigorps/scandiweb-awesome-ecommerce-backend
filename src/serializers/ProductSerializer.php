@@ -1,6 +1,9 @@
 <?php
 require_once('Serializer.php');
-abstract class ProductSerializer extends Serializer{
+require_once('validators/FieldValidator.php');
+require_once('validators/CharFieldValidator.php');
+abstract class ProductSerializer extends Serializer
+{
 
     public function __construct($data = null, $instance = null)
     {

@@ -2,7 +2,7 @@
 require_once('ProductSerializer.php');
 require_once('ModelSerializerInterface.php');
 require_once('../src/db/ProductBookDBManager.php');
-require_once('../src/db/ProductDBManager.php');
+require_once('validators/FieldValidator.php');
 class ProductBookSerializer extends ProductSerializer implements ModelSerializerInterface
 {
     public function __construct($data = null, $instance = null)
