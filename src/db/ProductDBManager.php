@@ -59,13 +59,40 @@ class ProductDBManager
             FROM `products` as p left join products_atribute as a on p.id=a.product_id;');
         $productTable = ProductDBManager::transformAtributeLinesToColumns($data);
         $products = [];
-
         foreach ($productTable as $product) {
             $products[] = ProductFactory::getProduct($product);
         }
-
-
         return $products;
+    }
+
+    public static function getByIDs($productIds): array
+    {
+        $db = new DB();
+        $connection = $db->getConnection();
+        $data = $connection->query(
+            'SELECT p.id, p.sku, p.name, p.price, p.type, a.atribute, a.value 
+            FROM `products` as p left join products_atribute as a on p.id=a.product_id 
+            where p.id in (' . implode(',', array_map('intval', $productIds)) . ');'
+        );
+        $productTable = ProductDBManager::transformAtributeLinesToColumns($data);
+        $products = [];
+        foreach ($productTable as $product) {
+            $products[] = ProductFactory::getProduct($product);
+        }
+        return $products;
+    }
+
+    public static function massDelete($products)
+    {
+        $productsId = [];
+        foreach ($products as $product) {
+            $productsId[] = $product->getId();
+        }
+        $db = new DB();
+        $connection = $db->getConnection();
+        $connection->query(
+            'DELETE FROM `products` where id in (' . implode(',', array_map('intval', $productsId)) . ');'
+        );
     }
 
     public static function addBasicProduct($product)
@@ -74,9 +101,9 @@ class ProductDBManager
         $connection = $db->getConnection();
         $stmt = $connection->prepare('INSERT INTO products(sku, name, price, type) VALUES(:sku, :name, :price, :type)');
         $result = $stmt->execute([
-            "sku" => $product->getSku(), 
-            "name" => $product->getName(), 
-            "price" => $product->getPrice(), 
+            "sku" => $product->getSku(),
+            "name" => $product->getName(),
+            "price" => $product->getPrice(),
             "type" => $product->getType()
         ]);
         if ($result === TRUE) {
