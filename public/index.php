@@ -13,4 +13,9 @@ $router->get('/products', function ($request) {
 $router->post('/products/create', function ($request) {
     return ProductControler::create($request);
 });
+
+$router->post('/products/delete', function ($request) {
+    return ProductControler::massDelete($request);
+});
+
 $router->route($request);
