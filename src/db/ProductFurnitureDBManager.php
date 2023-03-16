@@ -4,9 +4,9 @@ require_once('ProductDBManager.php');
 
 class ProductFurnitureDBManager
 {
-    public static function create($data)
+    public static function create($product)
     {
-        $product_id = ProductDBManager::addBasicProduct($data);
+        $product_id = ProductDBManager::addBasicProduct($product);
 
         /* } catch (PDOException $e) {
         print "Error!: " . $e->getMessage() . "<br/>";
@@ -14,7 +14,6 @@ class ProductFurnitureDBManager
         } */
         if ($product_id) {
             $db = new DB();
-            $connection = $db->getConnection();
             $connection = $db->getConnection();
             $stmt = $connection->prepare('
                 INSERT INTO products_atribute(product_id, atribute, value) VALUES
@@ -25,9 +24,9 @@ class ProductFurnitureDBManager
 
             $result = $stmt->execute([
                 "product_id" => $product_id,
-                "height" => $data["height"],
-                "width" => $data["width"],
-                "length" => $data["length"]
+                "height" => $product->getHeight(),
+                "width" => $product->getWidth(),
+                "length" => $product->getLength(),
             ]);
         }
     }

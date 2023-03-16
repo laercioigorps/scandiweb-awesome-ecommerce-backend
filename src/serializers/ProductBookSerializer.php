@@ -14,7 +14,7 @@ class ProductBookSerializer extends ProductSerializer implements ModelSerializer
 
     public function create()
     {
-        ProductBookDBManager::create($this->getCleanedData());
+        ProductBookDBManager::create($this->getInstance());
     }
 
     public function getInstanceData()

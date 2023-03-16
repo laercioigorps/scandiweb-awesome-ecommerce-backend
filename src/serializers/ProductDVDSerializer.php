@@ -14,7 +14,7 @@ class ProductDVDSerializer extends ProductSerializer implements ModelSerializerI
 
     public function create()
     {
-        ProductDVDDBManager::create($this->getCleanedData());
+        ProductDVDDBManager::create($this->getInstance());
     }
 
     public function getInstanceData()

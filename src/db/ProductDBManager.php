@@ -68,16 +68,17 @@ class ProductDBManager
         return $products;
     }
 
-    public static function addBasicProduct($data)
+    public static function addBasicProduct($product)
     {
         $db = new DB();
         $connection = $db->getConnection();
-        $stmt = $connection->prepare('INSERT INTO products(sku, name, price, type) VALUES(?, ?, ?, ?)');
-        $stmt->bindParam(1, $data['sku']);
-        $stmt->bindParam(2, $data['name']);
-        $stmt->bindParam(3, $data['price']);
-        $stmt->bindParam(4, $data['type']);
-        $result = $stmt->execute();
+        $stmt = $connection->prepare('INSERT INTO products(sku, name, price, type) VALUES(:sku, :name, :price, :type)');
+        $result = $stmt->execute([
+            "sku" => $product->getSku(), 
+            "name" => $product->getName(), 
+            "price" => $product->getPrice(), 
+            "type" => $product->getType()
+        ]);
         if ($result === TRUE) {
             return $connection->lastInsertId();
         }

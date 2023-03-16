@@ -16,7 +16,7 @@ class ProductFurnitureSerializer extends ProductSerializer implements ModelSeria
 
     public function create()
     {
-        ProductFurnitureDBManager::create($this->getCleanedData());
+        ProductFurnitureDBManager::create($this->getInstance());
     }
 
     public function getInstanceData()
