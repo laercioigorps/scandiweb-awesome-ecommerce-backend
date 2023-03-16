@@ -28,4 +28,12 @@ class ProductControler
         }
         return new Response(data: json_encode($main_list));
     }
+
+    public static function massDelete($request)
+    {
+        $productsId = $request->POST['products_id'];
+        $products = ProductDBManager::getByIDs($productsId);
+        ProductDBManager::massDelete($products);
+        return new Response();
+    }
 }
