@@ -1,11 +1,21 @@
 <?php
 abstract class Product
 {
-    private int $id;
-    private string $sku;
-    private string $name;
+    private ?int $id;
+    private ?string $sku;
+    private ?string $name;
     private $price;
-    protected string $type;
+    protected ?string $type;
+
+    public function __construct($id = null, $sku = null, $name = null, $price = null, $type = null)
+    {
+
+        $this->setId($id);
+        $this->setSku($sku);
+        $this->setName($name);
+        $this->setPrice($price);
+        $this->setType($type);
+    }
 
     public function getId(): int
     {

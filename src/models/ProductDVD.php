@@ -4,7 +4,13 @@ require_once('Product.php');
 
 class ProductDVD extends Product
 {
-    private int $size;
+    private $size;
+
+    public function __construct($id = null, $sku = null, $name = null, $price = null, $type = null, $size = null)
+    {
+        parent::__construct(id: $id, sku: $sku, name: $name, price: $price, type: $type);
+        $this->setSize($size);
+    }
 
     public function getSize()
     {
