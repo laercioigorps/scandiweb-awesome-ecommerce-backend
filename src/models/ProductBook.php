@@ -1,7 +1,7 @@
 <?php
-require_once('Product.php');
+namespace Models;
 
-class ProductBook extends Product
+class ProductBook extends \Models\Product
 {
     private $weight;
 

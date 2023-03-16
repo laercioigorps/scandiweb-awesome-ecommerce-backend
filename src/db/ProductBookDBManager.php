@@ -1,6 +1,5 @@
 <?php
-require_once('DB.php');
-require_once('ProductDBManager.php');
+namespace DB;
 
 class ProductBookDBManager
 {

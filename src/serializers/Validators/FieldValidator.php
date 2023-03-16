@@ -1,4 +1,5 @@
 <?php
+namespace Serializers\Validators;
 class FieldValidator
 {
 

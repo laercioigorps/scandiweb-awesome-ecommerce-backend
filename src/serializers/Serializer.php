@@ -1,4 +1,5 @@
 <?php
+namespace Serializers;
 abstract class Serializer
 {
     protected $data;

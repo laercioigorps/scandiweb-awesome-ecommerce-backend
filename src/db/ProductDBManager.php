@@ -1,10 +1,5 @@
 <?php
-
-require_once('../src/models/ProductFurniture.php');
-require_once('../src/models/ProductBook.php');
-require_once('../src/models/ProductDVD.php');
-require_once('../src/services/ProductFactory.php');
-require_once('DB.php');
+namespace DB;
 
 class ProductDBManager
 {
@@ -57,10 +52,10 @@ class ProductDBManager
         $data = $connection->query('
             SELECT p.id, p.sku, p.name, p.price, p.type, a.atribute, a.value 
             FROM `products` as p left join products_atribute as a on p.id=a.product_id;');
-        $productTable = ProductDBManager::transformAtributeLinesToColumns($data);
+        $productTable = \DB\ProductDBManager::transformAtributeLinesToColumns($data);
         $products = [];
         foreach ($productTable as $product) {
-            $products[] = ProductFactory::getProduct($product);
+            $products[] = \Services\ProductFactory::getProduct($product);
         }
         return $products;
     }
@@ -77,7 +72,7 @@ class ProductDBManager
         $productTable = ProductDBManager::transformAtributeLinesToColumns($data);
         $products = [];
         foreach ($productTable as $product) {
-            $products[] = ProductFactory::getProduct($product);
+            $products[] = \Services\ProductFactory::getProduct($product);
         }
         return $products;
     }

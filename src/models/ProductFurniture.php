@@ -1,7 +1,7 @@
 <?php
-require('Product.php');
+namespace Models;
 
-class ProductFurniture extends Product
+class ProductFurniture extends \Models\Product
 {
     private $height;
     private $width;

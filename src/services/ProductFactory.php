@@ -1,18 +1,19 @@
 <?php
+namespace Services;
 class ProductFactory
 {
-    public static function getProduct($data): Product
+    public static function getProduct($data): \Models\Product
     {
         if ($data['type'] == 'dvd') {
-            $product = new ProductDVD();
+            $product = new \Models\ProductDVD();
             $product->setSize((float) $data['size']);
         } elseif ($data['type'] == 'furniture') {
-            $product = new ProductFurniture();
+            $product = new \Models\ProductFurniture();
             $product->setHeight((float) $data['height']);
             $product->setWidth((float) $data['width']);
             $product->setLength((float) $data['length']);
         } elseif ($data['type'] == 'book') {
-            $product = new ProductBook();
+            $product = new \Models\ProductBook();
             $product->setWeight((float) $data['weight']);
         }
         if (isset($data['id'])) {

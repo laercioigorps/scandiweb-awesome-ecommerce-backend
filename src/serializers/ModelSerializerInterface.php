@@ -1,4 +1,5 @@
 <?php
+namespace Serializers;
 interface ModelSerializerInterface
 {
     public function create();

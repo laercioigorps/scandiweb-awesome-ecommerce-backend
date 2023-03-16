@@ -1,6 +1,7 @@
 <?php
-require_once('FieldValidator.php');
-class CharFieldValidator extends FieldValidator
+namespace Serializers\Validators;
+
+class CharFieldValidator extends \Serializers\Validators\FieldValidator
 {
     protected $maxLength;
 

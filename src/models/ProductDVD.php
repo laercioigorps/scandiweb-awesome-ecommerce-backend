@@ -1,8 +1,7 @@
 <?php
+namespace Models;
 
-require_once('Product.php');
-
-class ProductDVD extends Product
+class ProductDVD extends \Models\Product
 {
     private $size;
 

@@ -1,19 +1,18 @@
 <?php
-require_once('DB.php');
-require_once('ProductDBManager.php');
+namespace DB;
 
 class ProductFurnitureDBManager
 {
     public static function create($product)
     {
-        $product_id = ProductDBManager::addBasicProduct($product);
+        $product_id = \DB\ProductDBManager::addBasicProduct($product);
 
         /* } catch (PDOException $e) {
         print "Error!: " . $e->getMessage() . "<br/>";
         die();
         } */
         if ($product_id) {
-            $db = new DB();
+            $db = new \DB\DB();
             $connection = $db->getConnection();
             $stmt = $connection->prepare('
                 INSERT INTO products_atribute(product_id, atribute, value) VALUES

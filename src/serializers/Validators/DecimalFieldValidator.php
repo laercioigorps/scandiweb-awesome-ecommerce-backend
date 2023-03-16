@@ -1,6 +1,7 @@
 <?php
-require_once('FieldValidator.php');
-class DecimalFieldValidator extends FieldValidator
+namespace Serializers\Validators;
+
+class DecimalFieldValidator extends \Serializers\Validators\FieldValidator
 {
     private $positive;
 
