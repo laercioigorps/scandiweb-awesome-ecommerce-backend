@@ -2,6 +2,7 @@
 require_once('ProductSerializer.php');
 require_once('ModelSerializerInterface.php');
 require_once('../src/db/ProductFurnitureDBManager.php');
+require_once('../src/models/ProductFurniture.php');
 require_once('validators/DecimalFieldValidator.php');
 class ProductFurnitureSerializer extends ProductSerializer implements ModelSerializerInterface
 {
@@ -29,5 +30,18 @@ class ProductFurnitureSerializer extends ProductSerializer implements ModelSeria
             "type" => $instance->getType(),
             "type_specific" => ["Dimentions" => $instance->getHeight() . 'x' . $instance->getWidth() . 'x' . $instance->getLength()],
         ];
+    }
+
+    public function getInstance()
+    {
+        $productFurniture = new ProductFurniture();
+        $productFurniture->setSku($this->cleanedData['sku']);
+        $productFurniture->setName($this->cleanedData['name']);
+        $productFurniture->setPrice($this->cleanedData['price']);
+        $productFurniture->setType($this->cleanedData['type']);
+        $productFurniture->setHeight($this->cleanedData['height']);
+        $productFurniture->setWidth($this->cleanedData['width']);
+        $productFurniture->setLength($this->cleanedData['length']);
+        return $productFurniture;
     }
 }

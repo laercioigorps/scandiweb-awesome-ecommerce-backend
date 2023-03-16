@@ -2,6 +2,7 @@
 require_once('ProductSerializer.php');
 require_once('ModelSerializerInterface.php');
 require_once('../src/db/ProductBookDBManager.php');
+require_once('../src/models/ProductBook.php');
 require_once('validators/DecimalFieldValidator.php');
 class ProductBookSerializer extends ProductSerializer implements ModelSerializerInterface
 {
@@ -27,5 +28,16 @@ class ProductBookSerializer extends ProductSerializer implements ModelSerializer
             "type" => $instance->getType(),
             "type_specific" => ["Weight" => $instance->getWeight()],
         ];
+    }
+
+    public function getInstance()
+    {
+        $productBook = new ProductBook();
+        $productBook->setSku($this->cleanedData['sku']);
+        $productBook->setName($this->cleanedData['name']);
+        $productBook->setPrice($this->cleanedData['price']);
+        $productBook->setType($this->cleanedData['type']);
+        $productBook->setWeight($this->cleanedData['weight']);
+        return $productBook;
     }
 }
