@@ -32,12 +32,13 @@ class ProductBookSerializer extends ProductSerializer implements ModelSerializer
 
     public function getInstance()
     {
-        $productBook = new ProductBook();
-        $productBook->setSku($this->cleanedData['sku']);
-        $productBook->setName($this->cleanedData['name']);
-        $productBook->setPrice($this->cleanedData['price']);
-        $productBook->setType($this->cleanedData['type']);
-        $productBook->setWeight($this->cleanedData['weight']);
+        $productBook = new ProductBook(
+        sku: $this->cleanedData['sku'],
+        name: $this->cleanedData['name'],
+        price: $this->cleanedData['price'],
+        type: $this->cleanedData['type'],
+        weight: $this->cleanedData['weight'],
+        );
         return $productBook;
     }
 }

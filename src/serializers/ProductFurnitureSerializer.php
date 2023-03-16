@@ -34,14 +34,15 @@ class ProductFurnitureSerializer extends ProductSerializer implements ModelSeria
 
     public function getInstance()
     {
-        $productFurniture = new ProductFurniture();
-        $productFurniture->setSku($this->cleanedData['sku']);
-        $productFurniture->setName($this->cleanedData['name']);
-        $productFurniture->setPrice($this->cleanedData['price']);
-        $productFurniture->setType($this->cleanedData['type']);
-        $productFurniture->setHeight($this->cleanedData['height']);
-        $productFurniture->setWidth($this->cleanedData['width']);
-        $productFurniture->setLength($this->cleanedData['length']);
+        $productFurniture = new ProductFurniture(
+        sku: $this->cleanedData['sku'],
+        name: $this->cleanedData['name'],
+        price: $this->cleanedData['price'],
+        type: $this->cleanedData['type'],
+        height: $this->cleanedData['height'],
+        width: $this->cleanedData['width'],
+        length: $this->cleanedData['length'],
+        );
         return $productFurniture;
     }
 }

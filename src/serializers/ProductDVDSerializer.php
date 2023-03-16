@@ -32,12 +32,13 @@ class ProductDVDSerializer extends ProductSerializer implements ModelSerializerI
 
     public function getInstance()
     {
-        $productDVD = new ProductDVD();
-        $productDVD->setSku($this->cleanedData['sku']);
-        $productDVD->setName($this->cleanedData['name']);
-        $productDVD->setPrice($this->cleanedData['price']);
-        $productDVD->setType($this->cleanedData['type']);
-        $productDVD->setSize($this->cleanedData['size']);
+        $productDVD = new ProductDVD(
+        sku: $this->cleanedData['sku'],
+        name: $this->cleanedData['name'],
+        price: $this->cleanedData['price'],
+        type: $this->cleanedData['type'],
+        size: $this->cleanedData['size'],
+        );
         return $productDVD;
     }
 }
