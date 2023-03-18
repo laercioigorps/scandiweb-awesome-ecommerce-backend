@@ -13,14 +13,14 @@ class DecimalFieldValidator extends \Serializers\Validators\FieldValidator
 
     private function checkValidNumber($data)
     {
-        if (!is_numeric($data)) {
+        if ($data && !is_numeric($data)) {
             $this->appendErrorMessage("Field must be a valid number!");
         }
     }
 
     private function checkPositiveNumber($data)
     {
-        if ($this->positive && is_numeric($data) && $data < 0) {
+        if ($data && $this->positive && is_numeric($data) && $data < 0) {
             $this->appendErrorMessage("Field can not be a negative number!");
         }
     }
