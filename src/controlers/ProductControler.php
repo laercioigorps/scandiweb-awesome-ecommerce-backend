@@ -9,12 +9,10 @@ class ProductControler
         $serializer = $factory->getSerializer(data:$request->POST);
         if ($serializer->isValid()) {
             $serializer->create();
-            /* 
-            Rather, I could create the product using the factory methods, like:
+            /* Rather, I could create the product using the factory methods, like:
             $product = $factory->getModel(data:$request->POST);
-            $dbManager = $factory->getDBManager();
-            $dbManager->create($product); 
-            */
+            $dbManager = $factory->getDBManager(); Not implemented;
+            $dbManager->create($product); */
             return new \Services\Response(status: 201);
         }
         return new \Services\Response(data: json_encode(["errors" => $serializer->getErrors()]), status: 404);
