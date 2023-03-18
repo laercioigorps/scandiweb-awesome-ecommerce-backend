@@ -55,7 +55,8 @@ class ProductDBManager
         $productTable = \DB\ProductDBManager::transformAtributeLinesToColumns($data);
         $products = [];
         foreach ($productTable as $product) {
-            $products[] = \Services\ProductFactory::getProduct($product);
+            $factory = \Services\Factories\ProductModelFactory::getFactory($product['type']);
+            $products[] = $factory->getModel(data:$product);
         }
         return $products;
     }
@@ -72,7 +73,8 @@ class ProductDBManager
         $productTable = ProductDBManager::transformAtributeLinesToColumns($data);
         $products = [];
         foreach ($productTable as $product) {
-            $products[] = \Services\ProductFactory::getProduct($product);
+            $factory = \Services\Factories\ProductModelFactory::getFactory($product['type']);
+            $products[] = $factory->getModel(data:$product);
         }
         return $products;
     }

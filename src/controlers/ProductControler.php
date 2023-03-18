@@ -5,10 +5,16 @@ class ProductControler
 {
     public static function create($request)
     {
-        // Converts it into a PHP object
-        $serializer = \Services\ProductSerializerFactory::getProductSerializer($request->POST);
+        $factory = \Services\Factories\ProductModelFactory::getFactory($request->POST['type']);
+        $serializer = $factory->getSerializer(data:$request->POST);
         if ($serializer->isValid()) {
             $serializer->create();
+            /* 
+            Rather, I could create the product using the factory methods, like:
+            $product = $factory->getModel(data:$request->POST);
+            $dbManager = $factory->getDBManager();
+            $dbManager->create($product); 
+            */
             return new \Services\Response(status: 201);
         }
         return new \Services\Response(data: json_encode(["errors" => $serializer->getErrors()]), status: 404);
@@ -19,7 +25,8 @@ class ProductControler
         $products = \DB\ProductDBManager::getAll();
         $main_list = [];
         foreach ($products as $product) {
-            $serializer = \Services\ProductSerializerFactory::getProductSerializerFromProduct($product);
+            $factory = \Services\Factories\ProductModelFactory::getFactory($product->getType());
+            $serializer = $factory->getSerializer(instance:$product);
             $main_list[] = $serializer->getInstanceData();
         }
         return new \Services\Response(data: json_encode($main_list));
