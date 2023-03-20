@@ -23,7 +23,7 @@ class ProductBookSerializer extends \Serializers\ProductSerializer implements \S
             "name" => $instance->getName(),
             "price" => $instance->getPrice(),
             "type" => $instance->getType(),
-            "type_specific" => ["Weight" => $instance->getWeight()],
+            "type_specific" => ["Weight" => $instance->getWeight()."KG"],
         ];
     }
 

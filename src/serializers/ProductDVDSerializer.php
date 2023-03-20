@@ -23,7 +23,7 @@ class ProductDVDSerializer extends \Serializers\ProductSerializer implements \Se
             "name" => $instance->getName(),
             "price" => $instance->getPrice(),
             "type" => $instance->getType(),
-            "type_specific" => ["Size" => $instance->getSize()],
+            "type_specific" => ["Size" => $instance->getSize(). " MB"],
         ];
     }
 
