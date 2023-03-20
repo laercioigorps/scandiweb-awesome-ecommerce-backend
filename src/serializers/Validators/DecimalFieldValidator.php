@@ -14,7 +14,7 @@ class DecimalFieldValidator extends \Serializers\Validators\FieldValidator
     private function checkValidNumber($data)
     {
         if ($data && !is_numeric($data)) {
-            $this->appendErrorMessage("Field must be a valid number!");
+            $this->appendErrorMessage("Please, provide the data of indicated type");
         }
     }
 

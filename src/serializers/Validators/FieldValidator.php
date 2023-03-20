@@ -29,7 +29,7 @@ class FieldValidator
     protected function checkRequired($data)
     {
         if ($this->required && ($data == null || $data === '')) {
-            $this->appendErrorMessage("Field is required");
+            $this->appendErrorMessage("Please, submit required data");
         }
     }
 
