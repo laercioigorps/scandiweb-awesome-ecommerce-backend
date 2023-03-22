@@ -4,10 +4,10 @@ sequenceDiagram
     Router->>ProductControler : list(request)
     activate ProductControler
 
-    ProductControler->>ProductDBManager : listAll()
-    activate ProductDBManager
-    ProductDBManager->>ProductControler : products
-    deactivate ProductDBManager
+    ProductControler->>GeneralProductDBManager : listAll()
+    activate GeneralProductDBManager
+    GeneralProductDBManager->>ProductControler : products
+    deactivate GeneralProductDBManager
 
 
     loop Each product

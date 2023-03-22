@@ -16,13 +16,13 @@ classDiagram
     ProductSerializer <|-- ProductFurnitureSerializer
     ProductFactory --> ProductSerializer
     ModelSerializerInterface <|-- ProductSerializer
-    ProductDBManager --> DB
-    ProductControler --> ProductDBManager
+    GeneralProductsDBManager --> DB
+    ProductControler --> GeneralProductsDBManager
     ProductDBManagerInterface <|-- ProductDVDDBManager
     ProductDBManagerInterface <|-- ProductBookDBManager
     ProductDBManagerInterface <|-- ProductFurnitureDBManager
     ProductSerializer --> ProductDBManagerInterface
-    ProductDBManagerInterface --> ProductDBManager
+    ProductDBManagerInterface --> GeneralProductsDBManager
     ProductDBManagerInterface --> DB
     Router --> ProductControler
     ProductControler --> Response
@@ -30,7 +30,7 @@ classDiagram
     FieldValidator <|-- CharFieldValidator
     FieldValidator <|-- DecimalFieldValidator
     Serializer --> FieldValidator
-    ProductDBManager --> Product
+    GeneralProductsDBManager --> Product
     ProductDBManagerInterface --> Product
 
     class ProductControler{

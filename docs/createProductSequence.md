@@ -22,10 +22,10 @@ sequenceDiagram
     loop Each product serializer Field
         ProductModelSerializer->>FieldValidator : validate()
         ProductModelSerializer->>FieldValidator : isValid()
+        FieldValidator->>ProductModelSerializer : 
         alt if field is not valid
             ProductModelSerializer->>ProductModelSerializer : setError
         end
-        FieldValidator->>ProductModelSerializer : 
     end
 
 
@@ -40,10 +40,10 @@ sequenceDiagram
     ProductControler->>ProductModelSerializer: create()
     
     ProductModelSerializer->>ProductModelSerializer : getInstance()
-    ProductModelSerializer->>ProductDBManager : create(product)
-    activate ProductDBManager
-    ProductDBManager->>ProductModelSerializer : ok
-    deactivate ProductDBManager
+    ProductModelSerializer->>ProductDBManagerInterface : create(product)
+    activate ProductDBManagerInterface
+    ProductDBManagerInterface->>ProductModelSerializer : ok
+    deactivate ProductDBManagerInterface
 
     ProductModelSerializer->>ProductControler : ok
     deactivate ProductModelSerializer
