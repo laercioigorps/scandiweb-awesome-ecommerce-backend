@@ -126,8 +126,8 @@ classDiagram
         create(product)
     }
     class Router{
-        +get(uri, controler, method)
-        +post(uri, controler, method)
+        +get(uri, controler)
+        +post(uri, controler)
         +route(request)
     }
     class Response{
