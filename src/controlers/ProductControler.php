@@ -20,7 +20,7 @@ class ProductControler
 
     public static function list($request)
     {
-        $products = \DB\ProductDBManager::getAll();
+        $products = \DB\GeneralProductsDBManager::getAll();
         $main_list = [];
         foreach ($products as $product) {
             $factory = \Services\Factories\ProductModelFactory::getFactory($product->getType());
@@ -33,8 +33,8 @@ class ProductControler
     public static function massDelete($request)
     {
         $productsId = $request->POST['products_id'];
-        $products = \DB\ProductDBManager::getByIDs($productsId);
-        \DB\ProductDBManager::massDelete($products);
+        $products = \DB\GeneralProductsDBManager::getByIDs($productsId);
+        \DB\GeneralProductsDBManager::massDelete($products);
         return new \Services\Response();
     }
 }

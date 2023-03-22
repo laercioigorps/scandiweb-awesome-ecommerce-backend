@@ -1,7 +1,7 @@
 <?php
 namespace DB;
 
-class ProductDBManager
+class GeneralProductsDBManager
 {
 
     private static function transformAtributeLinesToColumns($data)
@@ -52,7 +52,7 @@ class ProductDBManager
         $data = $connection->query('
             SELECT p.id, p.sku, p.name, p.price, p.type, a.atribute, a.value 
             FROM `products` as p left join products_atribute as a on p.id=a.product_id;');
-        $productTable = \DB\ProductDBManager::transformAtributeLinesToColumns($data);
+        $productTable = \DB\GeneralProductsDBManager::transformAtributeLinesToColumns($data);
         $products = [];
         foreach ($productTable as $product) {
             $factory = \Services\Factories\ProductModelFactory::getFactory($product['type']);
@@ -70,7 +70,7 @@ class ProductDBManager
             FROM `products` as p left join products_atribute as a on p.id=a.product_id 
             where p.id in (' . implode(',', array_map('intval', $productIds)) . ');'
         );
-        $productTable = ProductDBManager::transformAtributeLinesToColumns($data);
+        $productTable = GeneralProductsDBManager::transformAtributeLinesToColumns($data);
         $products = [];
         foreach ($productTable as $product) {
             $factory = \Services\Factories\ProductModelFactory::getFactory($product['type']);

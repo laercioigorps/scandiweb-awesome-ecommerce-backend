@@ -6,7 +6,7 @@ class ProductBookDBManager
     public static function create($product)
     {
         /* try { */
-        $product_id = ProductDBManager::addBasicProduct($product);
+        $product_id = GeneralProductsDBManager::addBasicProduct($product);
         if ($product_id) {
             $db = new DB();
             $connection = $db->getConnection();

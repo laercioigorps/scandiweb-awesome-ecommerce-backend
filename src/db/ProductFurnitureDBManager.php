@@ -5,7 +5,7 @@ class ProductFurnitureDBManager
 {
     public static function create($product)
     {
-        $product_id = \DB\ProductDBManager::addBasicProduct($product);
+        $product_id = \DB\GeneralProductsDBManager::addBasicProduct($product);
 
         /* } catch (PDOException $e) {
         print "Error!: " . $e->getMessage() . "<br/>";
