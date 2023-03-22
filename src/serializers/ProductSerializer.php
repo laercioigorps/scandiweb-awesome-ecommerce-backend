@@ -1,7 +1,7 @@
 <?php
 namespace Serializers;
 
-abstract class ProductSerializer extends \Serializers\Serializer
+abstract class ProductSerializer extends \Serializers\Serializer implements \Serializers\ModelSerializerInterface
 {
 
     public function __construct($data = null, $instance = null)

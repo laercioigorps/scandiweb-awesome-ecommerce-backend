@@ -1,7 +1,7 @@
 <?php
 namespace Serializers;
 
-class ProductDVDSerializer extends \Serializers\ProductSerializer implements \Serializers\ModelSerializerInterface
+class ProductDVDSerializer extends \Serializers\ProductSerializer
 {
     public function __construct($data = null, $instance = null)
     {

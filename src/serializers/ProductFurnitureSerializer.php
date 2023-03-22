@@ -1,7 +1,7 @@
 <?php
 namespace Serializers;
 
-class ProductFurnitureSerializer extends \Serializers\ProductSerializer implements \Serializers\ModelSerializerInterface
+class ProductFurnitureSerializer extends \Serializers\ProductSerializer
 {
     public function __construct($data = null, $instance = null)
     {
