@@ -3,10 +3,10 @@ namespace Controlers;
 
 class ProductControler
 {
-    public static function create($request)
+    public static function create(\Services\Request $request): \Services\Response
     {
         $factory = \Services\Factories\ProductFactoryChooser::getFactory($request->POST['type']);
-        $serializer = $factory->getSerializer(data:$request->POST);
+        $serializer = $factory->getSerializer(data: $request->POST);
         if ($serializer->isValid()) {
             $serializer->create();
             /* Rather, I could create the product using the factory methods, like:
@@ -18,19 +18,19 @@ class ProductControler
         return new \Services\Response(data: json_encode(["errors" => $serializer->getErrors()]), status: 404);
     }
 
-    public static function list($request)
+    public static function list(\Services\Request $request): \Services\Response
     {
         $products = \DB\GeneralProductsDBManager::getAll();
         $main_list = [];
         foreach ($products as $product) {
             $factory = \Services\Factories\ProductFactoryChooser::getFactory($product->getType());
-            $serializer = $factory->getSerializer(instance:$product);
+            $serializer = $factory->getSerializer(instance: $product);
             $main_list[] = $serializer->getInstanceData();
         }
         return new \Services\Response(data: json_encode($main_list));
     }
 
-    public static function massDelete($request)
+    public static function massDelete(\Services\Request $request): \Services\Response
     {
         $productsId = $request->POST['products_id'];
         $products = \DB\GeneralProductsDBManager::getByIDs($productsId);

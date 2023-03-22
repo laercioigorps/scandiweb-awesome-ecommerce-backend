@@ -4,7 +4,7 @@ namespace DB;
 class GeneralProductsDBManager
 {
 
-    private static function transformAtributeLinesToColumns($data)
+    private static function transformAtributeLinesToColumns($data): array
     {
         $productTable = [];
         $currentproductID = null;
@@ -32,7 +32,7 @@ class GeneralProductsDBManager
         return $productTable;
     }
 
-    public static function isValidNewSKU($sku)
+    public static function isValidNewSKU(string $sku): bool
     {
         $db = new DB();
         $connection = $db->getConnection();
@@ -55,12 +55,12 @@ class GeneralProductsDBManager
         $products = [];
         foreach ($productTable as $product) {
             $factory = \Services\Factories\ProductFactoryChooser::getFactory($product['type']);
-            $products[] = $factory->getModel(data:$product);
+            $products[] = $factory->getModel(data: $product);
         }
         return $products;
     }
 
-    public static function getByIDs($productIds): array
+    public static function getByIDs(array $productIds): array
     {
         $db = new DB();
         $connection = $db->getConnection();
@@ -73,12 +73,12 @@ class GeneralProductsDBManager
         $products = [];
         foreach ($productTable as $product) {
             $factory = \Services\Factories\ProductFactoryChooser::getFactory($product['type']);
-            $products[] = $factory->getModel(data:$product);
+            $products[] = $factory->getModel(data: $product);
         }
         return $products;
     }
 
-    public static function massDelete($products)
+    public static function massDelete(array $products)
     {
         $productsId = [];
         foreach ($products as $product) {
@@ -91,7 +91,7 @@ class GeneralProductsDBManager
         );
     }
 
-    public static function addBasicProduct($product)
+    public static function addBasicProduct(\Models\Product $product): int
     {
         $db = new DB();
         $connection = $db->getConnection();

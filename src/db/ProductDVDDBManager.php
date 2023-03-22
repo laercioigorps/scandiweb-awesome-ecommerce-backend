@@ -1,8 +1,9 @@
 <?php
 namespace DB;
+
 class ProductDVDDBManager
 {
-    public static function create($product)
+    public static function create(\Models\Product $product)
     {
         $product_id = \DB\GeneralProductsDBManager::addBasicProduct($product);
 
@@ -15,8 +16,8 @@ class ProductDVDDBManager
             $connection = $db->getConnection();
             $stmt = $connection->prepare('INSERT INTO products_atribute(product_id, atribute, value) VALUES(:product_id, "size", :size)');
             $result = $stmt->execute([
-                "product_id" => $product_id, 
-                "size" =>$product->getSize()
+                "product_id" => $product_id,
+                "size" => $product->getSize()
             ]);
         }
     }

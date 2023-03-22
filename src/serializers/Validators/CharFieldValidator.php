@@ -5,7 +5,7 @@ class CharFieldValidator extends \Serializers\Validators\FieldValidator
 {
     protected $maxLength;
 
-    public function __construct($maxLength, $required = true, $unique = false, $uniqueChecker = null)
+    public function __construct(int $maxLength, bool $required = true, bool $unique = false, callable $uniqueChecker = null)
     {
         parent::__construct(required: $required, unique: $unique, uniqueChecker: $uniqueChecker);
         $this->maxLength = $maxLength;

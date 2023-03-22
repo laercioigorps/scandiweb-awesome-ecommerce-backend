@@ -23,18 +23,18 @@ class ProductDVDSerializer extends \Serializers\ProductSerializer
             "name" => $instance->getName(),
             "price" => $instance->getPrice(),
             "type" => $instance->getType(),
-            "type_specific" => ["Size" => $instance->getSize(). " MB"],
+            "type_specific" => ["Size" => $instance->getSize() . " MB"],
         ];
     }
 
-    public function getInstance()
+    public function getInstance(): \Models\ProductDVD
     {
         $productDVD = new \Models\ProductDVD(
-        sku: $this->cleanedData['sku'],
-        name: $this->cleanedData['name'],
-        price: $this->cleanedData['price'],
-        type: $this->cleanedData['type'],
-        size: $this->cleanedData['size'],
+            sku: $this->cleanedData['sku'],
+            name: $this->cleanedData['name'],
+            price: $this->cleanedData['price'],
+            type: $this->cleanedData['type'],
+            size: $this->cleanedData['size'],
         );
         return $productDVD;
     }

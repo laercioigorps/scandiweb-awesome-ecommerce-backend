@@ -1,14 +1,15 @@
 <?php
 namespace Serializers\Validators;
+
 class FieldValidator
 {
 
-    protected $required;
-    protected $errors = [];
-    protected $unique;
+    protected bool $required;
+    protected array $errors = [];
+    protected bool $unique;
     protected $uniqueChecker;
 
-    public function __construct($required = true, $unique = false, $uniqueChecker = null)
+    public function __construct(bool $required = true, bool $unique = false, callable $uniqueChecker = null)
     {
         $this->required = $required;
         $this->unique = $unique;
@@ -43,7 +44,7 @@ class FieldValidator
         }
     }
 
-    public function isValid()
+    public function isValid(): bool
     {
         if (count($this->errors) == 0) {
             return true;
@@ -51,7 +52,7 @@ class FieldValidator
         return false;
     }
 
-    public function getErrors()
+    public function getErrors(): ?array
     {
         if (count($this->errors) == 0) {
             return null;

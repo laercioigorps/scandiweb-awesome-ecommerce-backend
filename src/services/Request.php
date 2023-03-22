@@ -1,10 +1,11 @@
 <?php
 namespace Services;
+
 class Request
 {
 
-    private $uri;
-    private $method;
+    private string $uri;
+    private string $method;
     public $POST;
 
     public function __construct()
@@ -14,12 +15,12 @@ class Request
         $this->POST = json_decode(file_get_contents('php://input'), true);
     }
 
-    public function getURI()
+    public function getURI(): string
     {
         return $this->uri;
     }
 
-    public function getMethod()
+    public function getMethod(): string
     {
         return $this->method;
     }

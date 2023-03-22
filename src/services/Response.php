@@ -1,10 +1,11 @@
 <?php
 namespace Services;
+
 class Response
 {
 
     private $data = null;
-    public function __construct($data = null, $status = 200)
+    public function __construct($data = null, int $status = 200)
     {
         $this->setHeaders();
         $this->setStatus($status);

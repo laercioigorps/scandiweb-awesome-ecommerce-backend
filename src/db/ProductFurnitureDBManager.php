@@ -3,7 +3,7 @@ namespace DB;
 
 class ProductFurnitureDBManager
 {
-    public static function create($product)
+    public static function create(\Models\Product $product)
     {
         $product_id = \DB\GeneralProductsDBManager::addBasicProduct($product);
 

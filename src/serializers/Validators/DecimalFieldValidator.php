@@ -5,7 +5,7 @@ class DecimalFieldValidator extends \Serializers\Validators\FieldValidator
 {
     private $positive;
 
-    public function __construct($positive = false, $required = true, $unique = false, $uniqueChecker = null)
+    public function __construct(bool $positive = false, bool $required = true, bool $unique = false, callable $uniqueChecker = null)
     {
         parent::__construct(required: $required, unique: $unique, uniqueChecker: $uniqueChecker);
         $this->positive = $positive;

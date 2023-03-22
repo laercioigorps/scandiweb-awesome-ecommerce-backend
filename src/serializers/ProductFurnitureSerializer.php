@@ -29,16 +29,16 @@ class ProductFurnitureSerializer extends \Serializers\ProductSerializer
         ];
     }
 
-    public function getInstance()
+    public function getInstance(): \Models\ProductFurniture
     {
         $productFurniture = new \Models\ProductFurniture(
-        sku: $this->cleanedData['sku'],
-        name: $this->cleanedData['name'],
-        price: $this->cleanedData['price'],
-        type: $this->cleanedData['type'],
-        height: $this->cleanedData['height'],
-        width: $this->cleanedData['width'],
-        length: $this->cleanedData['length'],
+            sku: $this->cleanedData['sku'],
+            name: $this->cleanedData['name'],
+            price: $this->cleanedData['price'],
+            type: $this->cleanedData['type'],
+            height: $this->cleanedData['height'],
+            width: $this->cleanedData['width'],
+            length: $this->cleanedData['length'],
         );
         return $productFurniture;
     }

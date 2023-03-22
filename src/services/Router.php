@@ -6,7 +6,7 @@ class Router
 
     private $routes = [];
 
-    private function add($uri, $controler, $method)
+    private function add(string $uri, callable $controler, string $method)
     {
         $this->routes[] = [
             'uri' => $uri,
@@ -15,17 +15,17 @@ class Router
         ];
     }
 
-    public function get($uri, $controler)
+    public function get(string $uri, callable $controler)
     {
         $this->add($uri, $controler, 'GET');
     }
 
-    public function post($uri, $controler)
+    public function post(string $uri, callable $controler)
     {
         $this->add($uri, $controler, 'POST');
     }
 
-    public function route($request)
+    public function route(Request $request)
     {
         if ($request->getMethod() === 'OPTIONS') {
             new Response();

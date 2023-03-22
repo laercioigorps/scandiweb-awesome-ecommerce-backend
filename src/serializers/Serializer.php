@@ -1,5 +1,6 @@
 <?php
 namespace Serializers;
+
 abstract class Serializer
 {
     protected $data;
@@ -9,19 +10,19 @@ abstract class Serializer
     protected $errors = [];
     protected $fields = [];
 
-    public function __construct($data = null, $instance = null)
+    public function __construct(array $data = null, $instance = null)
     {
         $this->data = $data;
         $this->instance = $instance;
     }
 
-    public function isValid()
+    public function isValid(): bool
     {
         $this->validate();
         return $this->valid;
     }
 
-    public function getCleanedData()
+    public function getCleanedData(): array
     {
         return $this->cleanedData;
     }
@@ -31,7 +32,7 @@ abstract class Serializer
         $this->cleanedData = $cleanedData;
     }
 
-    public function getErrors()
+    public function getErrors(): ?array
     {
         if (count($this->errors) == 0) {
             return null;

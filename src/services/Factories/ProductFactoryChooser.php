@@ -4,7 +4,7 @@ namespace Services\Factories;
 class ProductFactoryChooser
 {
 
-    public static function getFactory($type)
+    public static function getFactory(string $type): \Services\Factories\ProductModelSerializerFactoryInterface
     {
 
         $factories = [

@@ -4,7 +4,7 @@ namespace Serializers;
 abstract class ProductSerializer extends \Serializers\Serializer implements \Serializers\ModelSerializerInterface
 {
 
-    public function __construct($data = null, $instance = null)
+    public function __construct(array $data = null, \Models\Product $instance = null)
     {
         parent::__construct(data: $data, instance: $instance);
         $this->fields["name"] = new Validators\CharFieldValidator(maxLength: 50, required: true);

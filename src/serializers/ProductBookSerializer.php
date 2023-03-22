@@ -1,6 +1,7 @@
 <?php
 namespace Serializers;
 
+
 class ProductBookSerializer extends \Serializers\ProductSerializer
 {
     public function __construct($data = null, $instance = null)
@@ -14,7 +15,7 @@ class ProductBookSerializer extends \Serializers\ProductSerializer
         \DB\ProductBookDBManager::create($this->getInstance());
     }
 
-    public function getInstanceData()
+    public function getInstanceData(): array
     {
         $instance = $this->instance;
         return $this->data = [
@@ -23,18 +24,18 @@ class ProductBookSerializer extends \Serializers\ProductSerializer
             "name" => $instance->getName(),
             "price" => $instance->getPrice(),
             "type" => $instance->getType(),
-            "type_specific" => ["Weight" => $instance->getWeight()."KG"],
+            "type_specific" => ["Weight" => $instance->getWeight() . "KG"],
         ];
     }
 
-    public function getInstance()
+    public function getInstance(): \Models\ProductBook
     {
         $productBook = new \Models\ProductBook(
-        sku: $this->cleanedData['sku'],
-        name: $this->cleanedData['name'],
-        price: $this->cleanedData['price'],
-        type: $this->cleanedData['type'],
-        weight: $this->cleanedData['weight'],
+            sku: $this->cleanedData['sku'],
+            name: $this->cleanedData['name'],
+            price: $this->cleanedData['price'],
+            type: $this->cleanedData['type'],
+            weight: $this->cleanedData['weight'],
         );
         return $productBook;
     }
