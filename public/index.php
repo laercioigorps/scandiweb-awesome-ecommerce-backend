@@ -1,12 +1,14 @@
 <?php
+declare(strict_types=1);
+
 require_once('../src/services/Psr4AutoloaderClass.php');
 $loader = new Services\Psr4AutoloaderClass();
 $loader->register();
 $loader->addNamespace('Models', '../src/models');
 $loader->addNamespace('Controlers', '../src/controlers');
-$loader->addNamespace('DB', '../src/db');    
+$loader->addNamespace('DB', '../src/db');
 $loader->addNamespace('Serializers', '../src/serializers');
-$loader->addNamespace('Services', '../src/services'); 
+$loader->addNamespace('Services', '../src/services');
 
 $request = new Services\Request();
 $router = new Services\Router();
