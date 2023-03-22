@@ -3,9 +3,22 @@
 sequenceDiagram
     Router->>ProductControler : list(request)
     activate ProductControler
-
+    
     ProductControler->>GeneralProductsDBManager : listAll()
     activate GeneralProductsDBManager
+
+    GeneralProductsDBManager->>GeneralProductsDBManager : query from products table
+
+    GeneralProductsDBManager->>GeneralProductsDBManager : transformAtributeLinesToColumns()
+
+    loop Each line as productLine
+        GeneralProductsDBManager->>ProductFactoryChooser : getFactory(type)
+        ProductFactoryChooser->>GeneralProductsDBManager : productFactory
+
+        GeneralProductsDBManager ->> ProductSpecificModelFactory : getModel(productLine)
+        ProductSpecificModelFactory ->> GeneralProductsDBManager : product
+        GeneralProductsDBManager->>GeneralProductsDBManager : add product to list
+    end
     GeneralProductsDBManager->>ProductControler : products
     deactivate GeneralProductsDBManager
 
