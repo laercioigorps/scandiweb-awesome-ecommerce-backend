@@ -25,7 +25,6 @@ class GeneralProductsDBManager
                 $currentproductID = $row['id'];
             }
             $currentproduct[$row['atribute']] = $row['value'];
-            //$products[] = ProductFactory::getProduct($row);
         }
         if ($data->rowCount() > 0) {
             $productTable[] = $currentproduct;
@@ -55,7 +54,7 @@ class GeneralProductsDBManager
         $productTable = \DB\GeneralProductsDBManager::transformAtributeLinesToColumns($data);
         $products = [];
         foreach ($productTable as $product) {
-            $factory = \Services\Factories\ProductModelFactory::getFactory($product['type']);
+            $factory = \Services\Factories\ProductFactoryChooser::getFactory($product['type']);
             $products[] = $factory->getModel(data:$product);
         }
         return $products;
@@ -73,7 +72,7 @@ class GeneralProductsDBManager
         $productTable = GeneralProductsDBManager::transformAtributeLinesToColumns($data);
         $products = [];
         foreach ($productTable as $product) {
-            $factory = \Services\Factories\ProductModelFactory::getFactory($product['type']);
+            $factory = \Services\Factories\ProductFactoryChooser::getFactory($product['type']);
             $products[] = $factory->getModel(data:$product);
         }
         return $products;

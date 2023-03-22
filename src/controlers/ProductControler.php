@@ -5,7 +5,7 @@ class ProductControler
 {
     public static function create($request)
     {
-        $factory = \Services\Factories\ProductModelFactory::getFactory($request->POST['type']);
+        $factory = \Services\Factories\ProductFactoryChooser::getFactory($request->POST['type']);
         $serializer = $factory->getSerializer(data:$request->POST);
         if ($serializer->isValid()) {
             $serializer->create();
@@ -23,7 +23,7 @@ class ProductControler
         $products = \DB\GeneralProductsDBManager::getAll();
         $main_list = [];
         foreach ($products as $product) {
-            $factory = \Services\Factories\ProductModelFactory::getFactory($product->getType());
+            $factory = \Services\Factories\ProductFactoryChooser::getFactory($product->getType());
             $serializer = $factory->getSerializer(instance:$product);
             $main_list[] = $serializer->getInstanceData();
         }

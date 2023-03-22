@@ -1,7 +1,7 @@
 <?php
 namespace Services\Factories;
 
-class ProductModelFactory
+class ProductFactoryChooser
 {
 
     public static function getFactory($type)
