@@ -3,10 +3,10 @@
 sequenceDiagram
     Router->>ProductControler: create(request)
     activate ProductControler
-    ProductControler->>ProductFactory: getFactory(productType)
-    activate ProductFactory
-    ProductFactory->>ProductControler: productModelFactory
-    deactivate ProductFactory
+    ProductControler->>ProductFactoryChooser: getFactory(productType)
+    activate ProductFactoryChooser
+    ProductFactoryChooser->>ProductControler: productFactory
+    deactivate ProductFactoryChooser
 
     ProductControler->>ProductFactoryInterface: getSerializer(data)
     activate ProductFactoryInterface

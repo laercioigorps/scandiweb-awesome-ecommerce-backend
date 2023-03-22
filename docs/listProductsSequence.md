@@ -4,15 +4,15 @@ sequenceDiagram
     Router->>ProductControler : list(request)
     activate ProductControler
 
-    ProductControler->>GeneralProductDBManager : listAll()
-    activate GeneralProductDBManager
-    GeneralProductDBManager->>ProductControler : products
-    deactivate GeneralProductDBManager
+    ProductControler->>GeneralProductsDBManager : listAll()
+    activate GeneralProductsDBManager
+    GeneralProductsDBManager->>ProductControler : products
+    deactivate GeneralProductsDBManager
 
 
     loop Each product
-        ProductControler->>ProductModelFactory : getFactory(type)
-        ProductModelFactory->>ProductControler : productFactory
+        ProductControler->>ProductFactoryChooser : getFactory(type)
+        ProductFactoryChooser->>ProductControler : productFactory
         ProductControler->>ProductSpecificModelFactory : getSerializer(product)
         ProductSpecificModelFactory->>ProductControler : serializer
 

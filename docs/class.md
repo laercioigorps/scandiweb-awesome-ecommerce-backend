@@ -3,18 +3,17 @@ classDiagram
     Product <|-- ProductDVD
     Product <|-- ProductBook
     Product <|-- ProductFurniture
-    ProductControler --> ProductFactory
+    ProductControler --> ProductFactoryChooser
     ProductFactoryInterface <|-- ProductDVDFactory
     ProductFactoryInterface <|-- ProductBookFactory
     ProductFactoryInterface <|-- ProductFurnitureFactory
-    ProductFactory --> ProductFactoryInterface
+    ProductFactoryChooser --> ProductFactoryInterface
     ProductFactoryInterface --> Product
     ProductFactoryInterface --> ProductSerializer
     Serializer <|-- ProductSerializer
     ProductSerializer <|-- ProductDVDSerializer
     ProductSerializer <|-- ProductBookSerializer
     ProductSerializer <|-- ProductFurnitureSerializer
-    ProductFactory --> ProductSerializer
     ModelSerializerInterface <|-- ProductSerializer
     GeneralProductsDBManager --> DB
     ProductControler --> GeneralProductsDBManager
@@ -38,8 +37,8 @@ classDiagram
         list(request)$
         massDelete(request)$
     }
-    class ProductFactory{
-        getFactory(productType)$
+    class ProductFactoryChooser{
+        getFactory(productType)$ : ProductFactoryInterface
     }
     class ProductFactoryInterface{
         getModel()
@@ -55,6 +54,7 @@ classDiagram
 
     }
     class Product{
+        <<Abstract>>
         -id
         -sku
         -name
@@ -104,7 +104,7 @@ classDiagram
     class DB{
         getConnection()
     }
-    class ProductDBManager{
+    class GeneralProductsDBManager{
         list()
         getByIDs(products_ids)
         massDelete(products)
