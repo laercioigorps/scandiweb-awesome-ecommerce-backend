@@ -33,16 +33,17 @@ classDiagram
     ProductDBManagerInterface --> Product
 
     class ProductControler{
-        create(request)$
-        list(request)$
-        massDelete(request)$
+        create(request)$ : Response
+        list(request)$ : Response 
+        massDelete(request)$ : Response
     }
     class ProductFactoryChooser{
         getFactory(productType)$ : ProductFactoryInterface
     }
     class ProductFactoryInterface{
-        getModel()
-        getSerializer()
+        <<Interface>>
+        getModel() : Product
+        getSerializer() : ProductSerializer
     }
     class ProductDVDFactory{
 
@@ -73,12 +74,13 @@ classDiagram
         -length
     }
     class Serializer{
+        <<Abstract>>
         +isValid()
         -validate()
         +getCleanedData()
     }
     class ProductSerializer{
-        -id
+        <<Abstract>>
         -sku
         -name
         -price
@@ -105,9 +107,9 @@ classDiagram
         getConnection()
     }
     class GeneralProductsDBManager{
-        list()
-        getByIDs(products_ids)
-        massDelete(products)
+        list()$ : List~Product~
+        getByIDs(products_ids)$ : List~Product~
+        massDelete(products)$
     }
 
     class ProductDBManagerInterface{
