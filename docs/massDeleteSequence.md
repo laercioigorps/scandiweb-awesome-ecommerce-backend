@@ -3,11 +3,11 @@
 sequenceDiagram
     Router->>ProductControler : massDelete(request)
 
-    ProductControler->>GeneralProductDBManager : getByIDs(listOfIds)
-    GeneralProductDBManager->>ProductControler : products
+    ProductControler->>GeneralProductsDBManager : getByIDs(listOfIds)
+    GeneralProductsDBManager->>ProductControler : products
 
-    ProductControler->>GeneralProductDBManager : massDelete(products)
-    GeneralProductDBManager->>ProductControler : ok
+    ProductControler->>GeneralProductsDBManager : massDelete(products)
+    GeneralProductsDBManager->>ProductControler : ok
 
     ProductControler->>Response : new Response()
     Response->>ProductControler : response
