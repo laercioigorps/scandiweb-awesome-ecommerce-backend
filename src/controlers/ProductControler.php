@@ -6,6 +6,9 @@ class ProductControler
     public static function create(\Services\Request $request): \Services\Response
     {
         $factory = \Services\Factories\ProductFactoryChooser::getFactory($request->POST['type']);
+        if (!$factory) {
+            return new \Services\Response(data: json_encode(["errors" => ["type" => ["Please, select a valid option"]]]), status: 404);
+        }
         $serializer = $factory->getSerializer(data: $request->POST);
         if ($serializer->isValid()) {
             $serializer->create();
