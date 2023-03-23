@@ -62,4 +62,9 @@ class FieldValidator
         }
         return $this->errors;
     }
+
+    public function getCleanedData($data)
+    {
+        return $data;
+    }
 }

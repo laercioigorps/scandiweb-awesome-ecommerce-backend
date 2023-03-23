@@ -8,7 +8,7 @@ abstract class Product
     private ?int $id;
     private ?string $sku;
     private ?string $name;
-    private $price;
+    private ?float $price;
     protected ?string $type;
 
     public function __construct($id = null, $sku = null, $name = null, $price = null, $type = null)

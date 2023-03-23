@@ -9,7 +9,7 @@ abstract class Serializer
     protected $data;
     protected $instance;
     protected $valid = false;
-    protected $cleanedData;
+    protected $cleanedData = [];
     protected $errors = [];
     protected $fields = [];
 
@@ -49,11 +49,12 @@ abstract class Serializer
             $validator->validate($this->data[$field]);
             if (!$validator->isValid()) {
                 $this->errors[$field] = $validator->getErrors();
+            } else {
+                $this->cleanedData[$field] = $validator->getCleanedData($this->data[$field]);
             }
         }
         if (count($this->errors) == 0) {
             $this->valid = true;
-            $this->cleanedData = $this->data;
         }
     }
 }

@@ -35,4 +35,9 @@ class DecimalFieldValidator extends FieldValidator
         $this->checkPositiveNumber($data);
     }
 
+    public function getCleanedData($data)
+    {
+        return (float) $data;
+    }
+
 }

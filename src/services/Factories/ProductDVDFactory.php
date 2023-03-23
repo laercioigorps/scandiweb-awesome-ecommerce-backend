@@ -17,7 +17,7 @@ class ProductDVDFactory implements ProductModelSerializerFactoryInterface
                 id: $data['id'],
                 sku: $data['sku'],
                 name: $data['name'],
-                price: $data['price'],
+                price: (float) $data['price'],
                 type: $data['type'],
                 size: $data['size']
             );
