@@ -1,7 +1,10 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Models;
 
-class ProductFurniture extends \Models\Product
+class ProductFurniture extends Product
 {
     private $height;
     private $width;

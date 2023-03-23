@@ -1,18 +1,24 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Serializers;
 
+use Models\ProductBook;
+use Serializers\Validators\DecimalFieldValidator;
+use DB\ProductBookDBManager;
 
-class ProductBookSerializer extends \Serializers\ProductSerializer
+class ProductBookSerializer extends ProductSerializer
 {
     public function __construct($data = null, $instance = null)
     {
         parent::__construct(data: $data, instance: $instance);
-        $this->fields["weight"] = new \Serializers\Validators\DecimalFieldValidator(required: true, positive: true);
+        $this->fields["weight"] = new DecimalFieldValidator(required: true, positive: true);
     }
 
     public function create()
     {
-        \DB\ProductBookDBManager::create($this->getInstance());
+        ProductBookDBManager::create($this->getInstance());
     }
 
     public function getInstanceData(): array
@@ -28,9 +34,9 @@ class ProductBookSerializer extends \Serializers\ProductSerializer
         ];
     }
 
-    public function getInstance(): \Models\ProductBook
+    public function getInstance(): ProductBook
     {
-        $productBook = new \Models\ProductBook(
+        $productBook = new ProductBook(
             sku: $this->cleanedData['sku'],
             name: $this->cleanedData['name'],
             price: $this->cleanedData['price'],

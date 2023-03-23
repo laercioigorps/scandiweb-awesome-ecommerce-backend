@@ -1,7 +1,10 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Serializers\Validators;
 
-class DecimalFieldValidator extends \Serializers\Validators\FieldValidator
+class DecimalFieldValidator extends FieldValidator
 {
     private $positive;
 

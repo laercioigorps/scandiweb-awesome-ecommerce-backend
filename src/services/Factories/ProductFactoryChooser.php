@@ -1,21 +1,24 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Services\Factories;
 
 class ProductFactoryChooser
 {
 
-    public static function getFactory($type = null): ?\Services\Factories\ProductModelSerializerFactoryInterface
+    public static function getFactory($type = null): ?ProductModelSerializerFactoryInterface
     {
         $factory = null;
         switch ($type) {
             case "dvd":
-                $factory = new \Services\Factories\ProductDVDFactory();
+                $factory = new ProductDVDFactory();
                 break;
             case "book":
-                $factory = new \Services\Factories\ProductBookFactory();
+                $factory = new ProductBookFactory();
                 break;
             case "furniture":
-                $factory = new \Services\Factories\ProductFurnitureFactory();
+                $factory = new ProductFurnitureFactory();
                 break;
         }
         return $factory;

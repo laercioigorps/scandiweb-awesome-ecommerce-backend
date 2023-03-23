@@ -1,7 +1,10 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Models;
 
-class ProductBook extends \Models\Product
+class ProductBook extends Product
 {
     private $weight;
 

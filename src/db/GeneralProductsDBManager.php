@@ -1,5 +1,11 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DB;
+
+use Models\Product;
+use Services\Factories\ProductFactoryChooser;
 
 class GeneralProductsDBManager
 {
@@ -51,10 +57,10 @@ class GeneralProductsDBManager
         $data = $connection->query('
             SELECT p.id, p.sku, p.name, p.price, p.type, a.atribute, a.value 
             FROM `products` as p left join products_atribute as a on p.id=a.product_id;');
-        $productTable = \DB\GeneralProductsDBManager::transformAtributeLinesToColumns($data);
+        $productTable = GeneralProductsDBManager::transformAtributeLinesToColumns($data);
         $products = [];
         foreach ($productTable as $product) {
-            $factory = \Services\Factories\ProductFactoryChooser::getFactory($product['type']);
+            $factory = ProductFactoryChooser::getFactory($product['type']);
             $products[] = $factory->getModel(data: $product);
         }
         return $products;
@@ -72,7 +78,7 @@ class GeneralProductsDBManager
         $productTable = GeneralProductsDBManager::transformAtributeLinesToColumns($data);
         $products = [];
         foreach ($productTable as $product) {
-            $factory = \Services\Factories\ProductFactoryChooser::getFactory($product['type']);
+            $factory = ProductFactoryChooser::getFactory($product['type']);
             $products[] = $factory->getModel(data: $product);
         }
         return $products;
@@ -91,7 +97,7 @@ class GeneralProductsDBManager
         );
     }
 
-    public static function addBasicProduct(\Models\Product $product): int
+    public static function addBasicProduct(Product $product): ?int
     {
         $db = new DB();
         $connection = $db->getConnection();
@@ -103,9 +109,9 @@ class GeneralProductsDBManager
             "type" => $product->getType()
         ]);
         if ($result === TRUE) {
-            return $connection->lastInsertId();
+            return (int) $connection->lastInsertId();
         }
-        return false;
+        return null;
     }
 
 }

@@ -1,7 +1,10 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Serializers\Validators;
 
-class CharFieldValidator extends \Serializers\Validators\FieldValidator
+class CharFieldValidator extends FieldValidator
 {
     protected $maxLength;
 

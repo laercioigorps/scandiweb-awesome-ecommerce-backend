@@ -1,19 +1,26 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Serializers;
 
-class ProductFurnitureSerializer extends \Serializers\ProductSerializer
+use Models\ProductFurniture;
+use Serializers\Validators\DecimalFieldValidator;
+use DB\ProductFurnitureDBManager;
+
+class ProductFurnitureSerializer extends ProductSerializer
 {
     public function __construct($data = null, $instance = null)
     {
         parent::__construct(data: $data, instance: $instance);
-        $this->fields["height"] = new \Serializers\Validators\DecimalFieldValidator(required: true, positive: true);
-        $this->fields["width"] = new \Serializers\Validators\DecimalFieldValidator(required: true, positive: true);
-        $this->fields["length"] = new \Serializers\Validators\DecimalFieldValidator(required: true, positive: true);
+        $this->fields["height"] = new DecimalFieldValidator(required: true, positive: true);
+        $this->fields["width"] = new DecimalFieldValidator(required: true, positive: true);
+        $this->fields["length"] = new DecimalFieldValidator(required: true, positive: true);
     }
 
     public function create()
     {
-        \DB\ProductFurnitureDBManager::create($this->getInstance());
+        ProductFurnitureDBManager::create($this->getInstance());
     }
 
     public function getInstanceData()
@@ -29,9 +36,9 @@ class ProductFurnitureSerializer extends \Serializers\ProductSerializer
         ];
     }
 
-    public function getInstance(): \Models\ProductFurniture
+    public function getInstance(): ProductFurniture
     {
-        $productFurniture = new \Models\ProductFurniture(
+        $productFurniture = new ProductFurniture(
             sku: $this->cleanedData['sku'],
             name: $this->cleanedData['name'],
             price: $this->cleanedData['price'],

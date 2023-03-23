@@ -1,13 +1,19 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Services\Factories;
+
+use Models\ProductFurniture;
+use Serializers\ProductFurnitureSerializer;
 
 class ProductFurnitureFactory implements ProductModelSerializerFactoryInterface
 {
 
-    public function getModel(array $data = null): \Models\ProductFurniture
+    public function getModel(array $data = null): ProductFurniture
     {
         if ($data) {
-            $model = new \Models\ProductFurniture(
+            $model = new ProductFurniture(
                 id: $data['id'],
                 sku: $data['sku'],
                 name: $data['name'],
@@ -18,14 +24,14 @@ class ProductFurnitureFactory implements ProductModelSerializerFactoryInterface
                 length: $data['length'],
             );
         } else {
-            $model = new \Models\ProductFurniture();
+            $model = new ProductFurniture();
         }
         return $model;
     }
 
     public function getSerializer($data = null, $instance = null)
     {
-        return new \Serializers\ProductFurnitureSerializer(data: $data, instance: $instance);
+        return new ProductFurnitureSerializer(data: $data, instance: $instance);
     }
 
 }

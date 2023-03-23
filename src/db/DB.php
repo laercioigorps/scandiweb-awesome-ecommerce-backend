@@ -1,5 +1,9 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DB;
+
 class DB
 {
 
@@ -9,7 +13,7 @@ class DB
     private $password = "password";
     private $charset = "utf8mb4";
 
-    public function getConnection()
+    public function getConnection(): \PDO
     {
         $dsn = "mysql:host=$this->servername;dbname=$this->database;charset=$this->charset";
         $pdo = new \PDO($dsn, $this->username, $this->password);

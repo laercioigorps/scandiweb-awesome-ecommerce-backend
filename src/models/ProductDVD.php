@@ -1,7 +1,10 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Models;
 
-class ProductDVD extends \Models\Product
+class ProductDVD extends Product
 {
     private $size;
 

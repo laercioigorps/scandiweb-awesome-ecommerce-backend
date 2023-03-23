@@ -1,13 +1,19 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Services\Factories;
+
+use Models\ProductDVD;
+use Serializers\ProductDVDSerializer;
 
 class ProductDVDFactory implements ProductModelSerializerFactoryInterface
 {
 
-    public function getModel(array $data = null): \Models\ProductDVD
+    public function getModel(array $data = null): ProductDVD
     {
         if ($data) {
-            $model = new \Models\ProductDVD(
+            $model = new ProductDVD(
                 id: $data['id'],
                 sku: $data['sku'],
                 name: $data['name'],
@@ -16,13 +22,13 @@ class ProductDVDFactory implements ProductModelSerializerFactoryInterface
                 size: $data['size']
             );
         } else {
-            $model = new \Models\ProductDVD();
+            $model = new ProductDVD();
         }
         return $model;
     }
 
     public function getSerializer($data = null, $instance = null)
     {
-        return new \Serializers\ProductDVDSerializer(data: $data, instance: $instance);
+        return new ProductDVDSerializer(data: $data, instance: $instance);
     }
 }

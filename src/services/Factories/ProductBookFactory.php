@@ -1,13 +1,19 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Services\Factories;
+
+use Models\ProductBook;
+use Serializers\ProductBookSerializer;
 
 class ProductBookFactory implements ProductModelSerializerFactoryInterface
 {
 
-    public function getModel(array $data = null): \Models\ProductBook
+    public function getModel(array $data = null): ProductBook
     {
         if ($data) {
-            $model = new \Models\ProductBook(
+            $model = new ProductBook(
                 id: $data['id'],
                 sku: $data['sku'],
                 name: $data['name'],
@@ -16,13 +22,13 @@ class ProductBookFactory implements ProductModelSerializerFactoryInterface
                 weight: $data['weight']
             );
         } else {
-            $model = new \Models\ProductBook();
+            $model = new ProductBook();
         }
         return $model;
     }
 
     public function getSerializer($data = null, $instance = null)
     {
-        return new \Serializers\ProductBookSerializer(data: $data, instance: $instance);
+        return new ProductBookSerializer(data: $data, instance: $instance);
     }
 }

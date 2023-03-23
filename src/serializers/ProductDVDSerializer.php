@@ -1,17 +1,24 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Serializers;
 
-class ProductDVDSerializer extends \Serializers\ProductSerializer
+use Models\ProductDVD;
+use Serializers\Validators\DecimalFieldValidator;
+use DB\ProductDVDDBManager;
+
+class ProductDVDSerializer extends ProductSerializer
 {
     public function __construct($data = null, $instance = null)
     {
         parent::__construct(data: $data, instance: $instance);
-        $this->fields["size"] = new \Serializers\Validators\DecimalFieldValidator(required: true, positive: true);
+        $this->fields["size"] = new DecimalFieldValidator(required: true, positive: true);
     }
 
     public function create()
     {
-        \DB\ProductDVDDBManager::create($this->getInstance());
+        ProductDVDDBManager::create($this->getInstance());
     }
 
     public function getInstanceData()
@@ -27,9 +34,9 @@ class ProductDVDSerializer extends \Serializers\ProductSerializer
         ];
     }
 
-    public function getInstance(): \Models\ProductDVD
+    public function getInstance(): ProductDVD
     {
-        $productDVD = new \Models\ProductDVD(
+        $productDVD = new ProductDVD(
             sku: $this->cleanedData['sku'],
             name: $this->cleanedData['name'],
             price: $this->cleanedData['price'],
