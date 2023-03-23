@@ -4,8 +4,9 @@ namespace Services\Factories;
 class ProductFactoryChooser
 {
 
-    public static function getFactory(string $type): ?\Services\Factories\ProductModelSerializerFactoryInterface
+    public static function getFactory($type = null): ?\Services\Factories\ProductModelSerializerFactoryInterface
     {
+        $serializer = null;
         switch ($type) {
             case "dvd":
                 $serializer = new \Services\Factories\ProductDVDFactory();
