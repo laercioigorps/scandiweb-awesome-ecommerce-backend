@@ -6,19 +6,19 @@ class ProductFactoryChooser
 
     public static function getFactory($type = null): ?\Services\Factories\ProductModelSerializerFactoryInterface
     {
-        $serializer = null;
+        $factory = null;
         switch ($type) {
             case "dvd":
-                $serializer = new \Services\Factories\ProductDVDFactory();
+                $factory = new \Services\Factories\ProductDVDFactory();
                 break;
             case "book":
-                $serializer = new \Services\Factories\ProductBookFactory();
+                $factory = new \Services\Factories\ProductBookFactory();
                 break;
             case "furniture":
-                $serializer = new \Services\Factories\ProductFurnitureFactory();
+                $factory = new \Services\Factories\ProductFurnitureFactory();
                 break;
         }
-        return $serializer;
+        return $factory;
 
     }
 
